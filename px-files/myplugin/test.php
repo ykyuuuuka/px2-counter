@@ -5,6 +5,8 @@
 	class ext{
 		public static function myplugin($px) {
 
+			$text_box = '';
+
 			foreach( $px->bowl()->get_keys() as $key ){
 			    $val = $px->bowl()->get($key);
 
