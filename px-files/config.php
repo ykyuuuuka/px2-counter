@@ -201,8 +201,11 @@ return call_user_func( function(){
 	$conf->funcs->processor = new stdClass;
 
 	$conf->funcs->processor->html = array(
-		//モジュールの文字数確認
-		'myplugin\ext::myplugin',
+		// モジュールの文字数確認
+		'ykyuuuuka\px2_counter\ext::px2_counter('.json_encode([
+        	'minLength'=>'200',
+        	'maxLength'=>'400',
+		]).')',
 
 
 		// ページ内目次を自動生成する

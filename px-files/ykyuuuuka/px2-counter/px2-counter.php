@@ -1,9 +1,10 @@
 <?php
-	namespace myplugin;
+	namespace ykyuuuuka\px2_counter;
 	require_once(__DIR__.'/phpQuery-onefile.php');
 
 	class ext{
-		public static function myplugin($px) {
+		public static function px2_counter($px,$conf) {
+			return false;
 
 			$text_box = '';
 
@@ -14,7 +15,7 @@
 				$text_box = $text_box.$val;
 
 			    //phpQuery関数の発火とaltの値を取得
-			    $doc = \phpQuery::newDocumentHTML($val);
+			    $doc = phpQuery::newDocumentHTML($val);
 			    foreach($doc['img'] as $dom) {
 			    	$val_alt = pq($dom) -> attr('alt');
 			    	$text_box = $text_box.$val_alt;
@@ -32,8 +33,15 @@
 
 			//加工が終わった文字列の文字数を取得
 			$string = mb_strlen($text_box,'UTF-8');
-			echo $text_box.'<br><br>-->'.$string.'文字です';
-
+			if($string < $conf ->minLength) {
+				$px->error($text_box.'<br><br>-->'.$string.'文字です');
+			}
+			if($string > $conf ->maxLength) {
+				$px->error($text_box.'<br><br>-->'.$string.'文字です');
+			}
 
 		}
 	}
+
+
+

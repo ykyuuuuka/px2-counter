@@ -27,7 +27,7 @@
     },
     "autoload": {
         "files": [
-            "px-files/myplugin/test.php"
+            "px-files/ykyuuuuka/px2-counter/px2-counter.php"
         ]
     }
 }
