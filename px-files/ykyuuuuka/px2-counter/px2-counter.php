@@ -4,7 +4,6 @@
 
 	class ext{
 		public static function px2_counter($px,$conf) {
-			return false;
 
 			$text_box = '';
 
@@ -15,7 +14,7 @@
 				$text_box = $text_box.$val;
 
 			    //phpQuery関数の発火とaltの値を取得
-			    $doc = phpQuery::newDocumentHTML($val);
+			    $doc = \phpQuery::newDocumentHTML($val);
 			    foreach($doc['img'] as $dom) {
 			    	$val_alt = pq($dom) -> attr('alt');
 			    	$text_box = $text_box.$val_alt;
@@ -33,15 +32,39 @@
 
 			//加工が終わった文字列の文字数を取得
 			$string = mb_strlen($text_box,'UTF-8');
-			if($string < $conf ->minLength) {
-				$px->error($text_box.'<br><br>-->'.$string.'文字です');
+
+			// conposer.jsonで設定された値を取得
+			if(isset($conf->minLength)) {
+				$minLength = $conf ->minLength;
+			} else {
+				$minLength = '';
 			}
-			if($string > $conf ->maxLength) {
-				$px->error($text_box.'<br><br>-->'.$string.'文字です');
+
+			if(isset($conf->maxLength)) {
+				$maxLength = $conf ->maxLength;
+			} else {
+				$maxLength = '';
+			}
+
+			//最大値・最小値のアラート
+			if($minLength == '' && $maxLength == '') {
+				$px->error('コンテンツエリアの文字数（altを含む）：'.$string.' 文字');
+			} else if($minLength !== '') {
+				if($string < $minLength) {
+					$gap = $minLength-$string;
+					$px->error('コンテンツエリアの文字数（altを含む）：'.$string.' 文字<br>不足文字数：'.$gap.' 文字');
+				}
+			} else if($maxLength !== '') {
+				if($string > $maxLength) {
+					$gap = $string-$maxLength;
+					$px->error('コンテンツエリアの文字数（altを含む）：'.$string.' 文字<br>超過文字数：'.$gap.' 文字');
+				}
 			}
 
 		}
 	}
+
+
 
 
 

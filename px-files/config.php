@@ -203,8 +203,9 @@ return call_user_func( function(){
 	$conf->funcs->processor->html = array(
 		// モジュールの文字数確認
 		'ykyuuuuka\px2_counter\ext::px2_counter('.json_encode([
-        	'minLength'=>'200',
-        	'maxLength'=>'400',
+			//最大値・最小値を設定してください。設定しなかった場合はすべてのページで文字数をアラートします
+        	// 'minLength'=>'100',
+        	// 'maxLength'=>'1000',
 		]).')',
 
 
