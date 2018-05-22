@@ -1,96 +1,47 @@
-Pickles 2
+Pickles2/px2-counter
 =========
 
-[Pickles 2](http://pickles2.pxt.jp/) は、静的で大きなウェブサイトを効率よく構築できる オープンソースのHTML生成ツールです。
-
-- サイトマップ(ページリスト)をCSV形式で管理し、グローバルナビゲーションの生成やカレント処理、パンくず生成、タイトルやメタタグの出力などを自動化します。
-- コンテンツ(ページ固有の内容部分)と、テーマ(ヘッダ、フッタ、ナビゲーションなどの共通部分)に分けてコーディングします。テーマはサイト全体を通して一元化された共通コードから自動生成します。
-- データベース不要、PHP5.4以上 が動くウェブサーバーに手軽に導入できます。
-- Markdown や SCSS などの文法を動的に導入できます。
-- 簡単なコマンドで、スタティックなHTMLファイルを出力(パブリッシュ)できます。
-- Composer 導入により、機能の追加、拡張が手軽にできるようになりました。
+px2-counter はPickles 2 で制作しているページのコンテンツエリアの文字数をカウントします。
+imgタグのaltに設定された値も含めたページ内の文字数に対して、任意の設定した最小値・最大値に応じて警告します。
 
 
-## インストール手順 - Install
+## Usage - 使い方
 
-Pickles 2 のインストールは、`composer` コマンドを使用します。
+### 1. Pickles2 をセットアップ
+
+### 2. composer.json に追記
 
 ```
-$ cd {$documentRoot}
-$ composer create-project pickles2/pickles2 ./
-$ chmod -R 777 ./px-files/_sys
-$ chmod -R 777 ./caches
+"autoload": {
+    "files": [
+        "px-files/ykyuuuuka/px2-counter/px2-counter.php"
+    ]
+}
 ```
 
-ウェブサーバーにブラウザでアクセスして、トップページが表示されるか、または、次のコマンドで設定情報が表示されれば成功です。
+### 3. config.php に追記
 
+プロセッサー処理の配列に以下を追記してください。
+minLnegthとmaxLengthを定義しなかった場合は、全てのページでページ内の文字数がアラートされます。
 ```
-$ php ./.px_execute.php /?PX=config
-```
-
-## パブリッシュ手順 - Publish
-
-```
-$ php ./.px_execute.php "/?PX=publish.run"
-```
-
-`./px-files/_sys/ram/publish/` に、スタティックなHTMLとして出力されます。
-
-
-## キャッシュを消去する手順 - Clear caches
-
-```
-$ php ./.px_execute.php "/?PX=clearcache"
+'ykyuuuuka\px2_counter\ext::px2_counter('.json_encode([
+	'minLength'=>'100',
+	'maxLength'=>'1000',
+]).')',
 ```
 
-## システム要件 - System Requirement
+### 3. composer を更新
 
-- Linux系サーバ または Windowsサーバ
-- Apache1.3以降
-  - mod_rewrite が利用可能であること
-  - .htaccess が利用可能であること
-- PHP5.4以上
-  - mb_string が有効に設定されていること
-  - safe_mode が無効に設定されていること
-
-
+```
+$ composer update
+```
 
 ## ライセンス - License
 
-Copyright (c)2001-2017 Tomoya Koyanagi, and Pickles 2 Project<br />
+Copyright (c)2001-2018 Tomoya Koyanagi, and Pickles 2 Project<br />
 MIT License https://opensource.org/licenses/mit-license.php
 
 
 ## 作者 - Author
-
-- Tomoya Koyanagi <tomk79@gmail.com>
+- Yuya Kaisen <yuya.kaisen@gmail.com>
 - website: <http://www.pxt.jp/>
-- Twitter: @tomk79 <http://twitter.com/tomk79/>
-
-
-## 付録 - Appendix
-
-### composer のインストール
-
-`composer` のインストール方法について
-詳しくは [composerの公式サイト(英語)](https://getcomposer.org/doc/00-intro.md) を参照してください。
-
-下記は公式サイトからの抜粋です。参考までに。
-
-#### Macの方
-
-Mac の方は、次のコマンドでグローバルインストールできます。
-
-```
-$ curl -sS https://getcomposer.org/installer | php
-$ mv composer.phar /usr/local/bin/composer
-```
-#### Windowsの方
-
-Windows の方は、GUIインストーラ Composer-Setup.exe が用意されています。
-次のコマンドでもインストールできますので、お好みの方法でインストールしてください。
-
-```
-$ cd C:\bin
-$ php -r "readfile('https://getcomposer.org/installer');" | php
-```
