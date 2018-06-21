@@ -36,8 +36,6 @@ minLength と maxLength を定義しなかった場合は、全てのページ�
 $ composer update
 ```
 
-
-
 ## ライセンス - License
 
 Copyright (c)2001-2018 Tomoya Koyanagi, and Pickles 2 Project<br />
@@ -46,4 +44,4 @@ MIT License https://opensource.org/licenses/mit-license.php
 
 ## 作者 - Author
 - Yuya Kaisen <yuya.kaisen@gmail.com>
-- website: <http://www.pxt.jp/>
+- website: <https://github.com/ykyuuuuka>
